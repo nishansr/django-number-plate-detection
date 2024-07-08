@@ -29,7 +29,7 @@ To run this project locally, follow these steps:
 1. Clone the repository:
 ```
 git clone https://github.com/nishansr/django-number-plate-detection.git
-cd your-repository
+cd django-number-plate-detection
 ```
 2. Install the required Python dependencies:
 
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ```
 3. Run the Django development server:
 ``` python
-    python manage.py runserver
+python manage.py runserver
 ```
 
 
