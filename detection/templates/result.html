@@ -56,7 +56,7 @@
             </div>
             <div class="row result-section">
                 <div class="col-md-3">
-                    <h4>Median Filter:</h4>
+                    <h>Median Filter:</h>
                     <img src="{{ median_filtered_path }}" class="img-fluid mb-4" alt="Median Filter">
                 </div>
                 <div class="col-md-3">
@@ -64,12 +64,30 @@
                     <img src="{{ prewitt_filtered_path }}" class="img-fluid mb-4" alt="Prewitt Filter">
                 </div>
                 <div class="col-md-3">
-                    <h4>Sobel Filter:</h3>
+                    <h4>Sobel Filter:</h4>
                     <img src="{{ sobel_filtered_path }}" class="img-fluid mb-4" alt="Sobel Filter">
                 </div>
                 <div class="col-md-3">
                     <h4>Laplacian Filter:</h4>
                     <img src="{{ laplacian_filtered_path }}" class="img-fluid mb-4" alt="Laplacian Filter">
+                </div>
+            </div>
+            <div class="row result-section">
+                <div class="col-md-12">
+                    <h3>4-Directional Chain Code:</h3>
+                    <p>{{ chain_code_4 }}</p>
+                </div>
+                <div class="col-md-12">
+                    <h3>4-Directional First Difference:</h3>
+                    <p>{{ first_diff_4 }}</p>
+                </div>
+                <div class="col-md-12">
+                    <h3>8-Directional Chain Code:</h3>
+                    <p>{{ chain_code_8 }}</p>
+                </div>
+                <div class="col-md-12">
+                    <h3>8-Directional First Difference:</h3>
+                    <p>{{ first_diff_8 }}</p>
                 </div>
             </div>
             <a href="/" class="btn btn-primary full-width-btn">Upload another image</a> 

@@ -3,6 +3,49 @@ import cv2
 import numpy as np
 import os
 
+def get_chain_code(img, directions=4):
+    # Convert image to binary
+    _, binary = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY_INV)
+    contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    chain_code = []
+    if directions == 4:
+        direction_map = {
+            (0, 1): 0,
+            (-1, 0): 1,
+            (0, -1): 2,
+            (1, 0): 3
+        }
+    else:  # 8 directions
+        direction_map = {
+            (0, 1): 0,
+            (-1, 1): 1,
+            (-1, 0): 2,
+            (-1, -1): 3,
+            (0, -1): 4,
+            (1, -1): 5,
+            (1, 0): 6,
+            (1, 1): 7
+        }
+
+    if contours:
+        contour = contours[0]
+        prev_point = contour[0][0]
+        for point in contour[1:]:
+            diff = (point[0][1] - prev_point[1], point[0][0] - prev_point[0])
+            if diff in direction_map:
+                chain_code.append(direction_map[diff])
+            prev_point = point[0]
+
+    return chain_code
+
+def get_first_difference(chain_code, directions=4):
+    first_diff = []
+    for i in range(1, len(chain_code)):
+        first_diff.append((chain_code[i] - chain_code[i - 1]) % directions)
+    return first_diff
+
+
 def detect_plate(request):
     if request.method == 'POST' and request.FILES['image']:
         image = request.FILES['image']
@@ -71,6 +114,12 @@ def detect_plate(request):
         img_path = os.path.join('media', 'processed_image.jpg')
         cv2.imwrite(img_path, img)
         
+        chain_code_4 = get_chain_code(gray, directions=4)
+        first_diff_4 = get_first_difference(chain_code_4, directions=4)
+
+        chain_code_8 = get_chain_code(gray, directions=8)
+        first_diff_8 = get_first_difference(chain_code_8, directions=8)
+
         return render(request, 'result.html', {
             'image_path': img_path,
             'plate_image_path': plate_img_path,
@@ -80,7 +129,11 @@ def detect_plate(request):
             'median_filtered_path': median_filtered_path,
             'prewitt_filtered_path': prewitt_filtered_path,
             'sobel_filtered_path': sobel_filtered_path,
-            'laplacian_filtered_path': laplacian_filtered_path
+            'laplacian_filtered_path': laplacian_filtered_path,
+            'chain_code_4': chain_code_4,
+            'first_diff_4': first_diff_4,
+            'chain_code_8': chain_code_8,
+            'first_diff_8': first_diff_8
         })
     
     return render(request, 'upload.html')
