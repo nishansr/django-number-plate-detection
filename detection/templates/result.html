@@ -9,7 +9,7 @@
         .result-container {
             font-family: 'Rajdhani', Arial, sans-serif;
             max-width: 800px;
-            margin: 100px auto;
+            margin: 50px auto;
             padding: 20px;
             background: #f9f9f9;
             border: 1px solid #ccc;
@@ -19,13 +19,16 @@
         .full-width-btn {
             width: 100%;
         }
+        .result-section {
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="result-container">
             <h2 class="mb-4">Plate Detection Result</h2>
-            <div class="row">
+            <div class="row result-section">
                 <div class="col-md-6">
                     <h3>Detected License Plate:</h3>
                     <img src="{{ image_path }}" class="img-fluid mb-4" alt="Detected Plate">
@@ -35,6 +38,38 @@
                         <h3>Detected Number Plate:</h3>
                         <img src="{{ plate_image_path }}" class="img-fluid mb-4" alt="Number Plate">
                     {% endif %}
+                </div>
+            </div>
+            <div class="row result-section">
+                <div class="col-md-4">
+                    <h4>Global Thresholding:</h4>
+                    <img src="{{ global_thresh_path }}" class="img-fluid mb-4" alt="Global Thresholding">
+                </div>
+                <div class="col-md-4">
+                    <h4>Adaptive Thresholding:</h4>
+                    <img src="{{ adaptive_thresh_path }}" class="img-fluid mb-4" alt="Adaptive Thresholding">
+                </div>
+                <div class="col-md-4">
+                    <h4>Otsu's Thresholding:</h4>
+                    <img src="{{ otsu_thresh_path }}" class="img-fluid mb-4" alt="Otsu's Thresholding">
+                </div>
+            </div>
+            <div class="row result-section">
+                <div class="col-md-3">
+                    <h4>Median Filter:</h4>
+                    <img src="{{ median_filtered_path }}" class="img-fluid mb-4" alt="Median Filter">
+                </div>
+                <div class="col-md-3">
+                    <h4>Prewitt Filter:</h4>
+                    <img src="{{ prewitt_filtered_path }}" class="img-fluid mb-4" alt="Prewitt Filter">
+                </div>
+                <div class="col-md-3">
+                    <h4>Sobel Filter:</h3>
+                    <img src="{{ sobel_filtered_path }}" class="img-fluid mb-4" alt="Sobel Filter">
+                </div>
+                <div class="col-md-3">
+                    <h4>Laplacian Filter:</h4>
+                    <img src="{{ laplacian_filtered_path }}" class="img-fluid mb-4" alt="Laplacian Filter">
                 </div>
             </div>
             <a href="/" class="btn btn-primary full-width-btn">Upload another image</a> 
